@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Continuous Integration with Ruby</title>
+
+    <meta name="description" content="Madrid.rb presentation about Continuous Integration with Ruby">
+    <meta name="author" content="Enrique García Cota">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/kikito.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/vs.css">
+
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+        <section data-markdown data-separator="\*\*\*">
+          <script type="text/template">
+
+<!-- .slide: data-background="./img/bridge.jpeg" -->
+## Continuous Integration
+### with
+# Ruby
+
+<div class="subtitle"><p>[Enrique García](http://kiki.to) ([@otikik](http://twitter.com/otikik)). Madrid.rb - Feb '16</p></div>
+
+***
+
+https://kikito.github.io/ci-with-ruby
+
+***
+
+<!-- .slide: data-background="#008AB8" -->
+
+## I. What, why?
+## II. How?
+## III. Conclusion
+
+***
+<!-- .slide: data-background="./img/medusa.jpeg" -->
+
+# I. What? Why?
+
+***
+<!-- .slide: data-background="#9BC53D" -->
+
+## Continuous Integration:
+
+> Automated & frequent checks on the code
+
+***
+<!-- .slide: data-background="./img/drone.jpg" -->
+
+# Automated
+
+***
+<!-- .slide: data-background="./img/frequent.jpg" -->
+
+# Frequent
+
+***
+<!-- .slide: data-background="./img/checks.jpg" -->
+
+# Checks
+
+***
+
+``` ruby
+# spec/numbers_spec.rb
+
+describe 'A number' do
+  it 'Can be added to other number' do
+    expect(2+2).to eq(4)
+  end
+end
+```
+
+***
+<!-- .slide: data-background="#9BC53D" -->
+
+# Why?
+
+***
+
+<!-- .slide: data-background="./img/time.jpeg" -->
+
+***
+
+<!-- .slide: data-background="./img/effort.jpeg" -->
+
+***
+
+<!-- .slide: data-background="./img/effort-graph.png" -->
+
+***
+
+<!-- .slide: data-background="./img/mine.jpg" -->
+
+***
+
+<!-- .slide: data-background="./img/amish.jpg" -->
+
+# II. How?
+
+***
+
+<!-- .slide: data-background="./img/time.jpeg" -->
+
+***
+
+|   |   |   |
+|---|---|---|
+| [![github](./img/github.png) github.com](http://github.com) | [![travis ci](./img/travis-ci.png) travis-ci.org](http://travis-ci.org) | [![coveralls.io](./img/coveralls.png) coveralls.io](http://coveralls.io) |
+***
+
+|   |   |   |
+|---|---|---|
+| [![bitbucket](./img/bitbucket.jpg) bitbucket.org](http://bitbucket.org) | [![drone.io](./img/drone-io.png) drone.io](http://drone.io) | [![codecov.io](./img/codecov.png) codecov.io](http://codecov.io) |
+
+***
+
+<figure class="stretch">
+  <img src="./img/superman.jpg" class="stretch">
+</figure>
+
+***
+
+<!-- .slide: data-background="./img/supermans.jpg" -->
+
+***
+
+<!-- .slide: data-background="#008AB8" -->
+
+## a) Environment
+
+***
+
+<figure class="stretch">
+  <img src="./img/ruby-logo.svg" height="1000" class="plain stretch">
+</figure>
+
+***
+
+[travis-ci.org](http://travis-ci.org)
+
+[![travis-ci](./img/travis-ci.png)](http://travis-ci.org)
+
+***
+
+`.travis.yml`
+
+***
+
+<figure class="stretch">
+  <img src="./img/travis-languages.png" class="stretch">
+</figure>
+
+***
+
+``` yaml
+# .travis.yml
+
+language: ruby
+
+rvm:
+  - '1.9.3'
+  - 'ree'
+  - 'jruby-18mode' # JRuby in 1.8 mode
+  - 'jruby-19mode' # JRuby in 1.9 mode
+  - 'rbx-2.1.1'
+```
+
+***
+
+``` yaml
+# .travis.yml
+
+language: ruby
+
+rvm:
+ - "2.2.3"
+```
+
+***
+
+``` yaml
+# .travis.yml
+
+language: ruby
+
+rvm:
+ - "2.2.3"
+
+cache: bundler
+```
+
+***
+
+## SAAS
+
+***
+
+## SAAS vs OSS
+
+***
+
+<figure class="stretch">
+  <img src="./img/jenkins.jpg" class="stretch">
+</figure>
+
+***
+
+[madridrb.com/events/septiembre-2014](http://www.madridrb.com/events/septiembre-2014)
+
+<figure class="stretch">
+  <a href="http://www.madridrb.com/events/septiembre-2014"><img src="./img/adios-jenkins.png" height="500" class="stretch"></a>
+</figure>
+
+***
+
+<!-- .slide: data-background="#008AB8" -->
+
+## b) Specs
+
+***
+
+[rspec.info](http://rspec.info)
+
+<figure class="stretch">
+  <a href="http://rspec.info"><img src="./img/rspec.png" height="400" class="plain stretch"></a>
+</figure>
+
+***
+
+``` ruby
+# my_lib.rb
+
+module MyLib
+  def add(a,b) a+b end
+end
+```
+
+***
+
+``` ruby
+# spec/my_lib_spec.rb
+
+require 'my_lib'
+
+describe MyLib do
+  it 'adds numbers' do
+    expect(MyLib.add(2,3)).to eq(5)
+  end
+end
+```
+
+***
+
+<figure class="stretch">
+  <img src="./img/rspec-green.png" class="stretch" width="2000">
+</figure>
+
+***
+
+<figure class="stretch">
+  <img src="./img/rspec-red.png" class="stretch" width="2000">
+</figure>
+
+***
+
+``` ruby
+# Gemfile
+
+group :development, :test do
+  gem 'rspec-rails'
+end
+```
+
+***
+
+``` ruby
+# Gemfile
+
+group :development, :test do
+  gem 'rspec'
+end
+```
+
+***
+
+``` ruby
+# Gemfile
+source 'https://rubygems.org'
+
+# Specify your gem's dependencies in kaminari.gemspec
+gemspec
+```
+
+***
+
+``` ruby
+# my_gem.gemspec
+
+$:.push File.expand_path("../lib", __FILE__)
+require "my_gem/version"
+
+Gem::Specification.new do |s|
+  ...
+  s.add_development_dependency 'rspec', ['>= 0']
+end
+```
+***
+
+```
+bundle install --jobs=3 --retry=3
+```
+
+***
+
+```
+rake
+```
+
+***
+
+``` yml
+# .travis.yml
+
+before_script:
+  - |
+    for i in config/*.example; do
+      cp \"$i\" \"${i/.example}\";
+    done
+  - bundle exec rake db:setup
+script: bundle exec rake
+```
+
+***
+
+travis status screen
+<figure class="stretch">
+  <img src="./img/travis-green.png" class="stretch">
+</figure>
+
+***
+
+github pr screen
+<figure class="stretch">
+  <img src="./img/travis-github-yellow.png" class="stretch">
+</figure>
+
+***
+
+github pr screen
+<figure class="stretch">
+  <img src="./img/travis-github-red.png" class="stretch">
+</figure>
+
+***
+
+github pr screen
+<figure class="stretch">
+  <img src="./img/travis-github-green.png" class="stretch">
+</figure>
+
+***
+
+github all prs
+<figure class="stretch">
+  <img src="./img/travis-github-prs-green.png" class="stretch">
+</figure>
+
+***
+
+<!-- .slide: data-background="./img/mine.jpg" -->
+
+***
+
+<!-- .slide: data-background="#008AB8" -->
+
+## b) Coverage
+
+***
+
+[coveralls.io](http://coveralls.io)
+
+[![coveralls.io](./img/coveralls.png)](http://coveralls.io)
+
+***
+
+coveralls file view
+<figure class="stretch">
+  <img src="./img/coveralls-file.png" class="stretch">
+</figure>
+
+***
+
+coveralls github integration
+<figure class="stretch">
+  <img src="./img/coveralls-github.png" class="stretch">
+</figure>
+
+***
+
+.coveralls.yml
+
+***
+
+``` yaml
+# .coveralls.yml
+
+service_name: travis-ci
+```
+
+***
+
+``` ruby
+# Gemfile
+
+group :test do
+  gem 'coveralls', require: false
+end
+```
+
+***
+
+``` ruby
+# rails_helper.rb
+
+require 'coveralls'
+Coveralls.wear!('rails')
+```
+
+***
+
+<!-- .slide: data-background="#008AB8" -->
+
+## c) Static analysis
+
+***
+
+[codeclimate.com](https://codeclimate.com)
+
+<figure class="stretch">
+  <a href="https://codeclimate.com"><img src="./img/codeclimate.png" class="stretch"></a>
+</figure>
+
+***
+
+<figure class="stretch">
+  <img src="./img/codeclimate-dashboard.png" class="stretch">
+</figure>
+
+***
+
+<figure class="stretch">
+  <img src="./img/codeclimate-file.png" class="stretch">
+</figure>
+
+***
+
+<figure class="stretch">
+  <a href="https://infinum.co/the-capsized-eight/articles/top-8-tools-for-ruby-on-rails-code-optimization-and-cleanup"><img src="./img/static-analysis-article.png" class="stretch"></a>
+</figure>
+
+***
+
+[houndci.com](https://houndci.com)
+
+<figure class="stretch">
+  <a href="https://houndci.com"><img src="./img/houndci.png" class="plain stretch"></a>
+</figure>
+
+***
+
+<!-- .slide: data-background="#008AB8" -->
+
+## d) Security
+
+***
+
+[gemnasium.com](https://gemnasium.com)
+
+<figure class="stretch">
+  <a href="https://gemnasium.com"><img src="./img/gemnasium.png" class="plain stretch"></a>
+</figure>
+
+***
+
+<figure class="stretch">
+  <img src="./img/gemnasium-report.png" class="plain stretch"></a>
+</figure>
+
+***
+
+<!-- .slide: data-background="#008AB8" -->
+
+## e) All together
+
+***
+
+[github.com/consul/consul](https://github.com/consul/consul)
+
+<figure class="stretch">
+  <img src="./img/consul.png" class="stretch"></a>
+</figure>
+
+***
+
+[shields.io](https://shields.io)
+
+<figure class="stretch">
+  <img src="./img/shields.png" class="stretch"></a>
+</figure>
+
+***
+
+<!-- .slide: data-background="./img/conclusion.jpg" -->
+
+# III. Conclusion
+
+***
+
+### What, why, how?
+
+***
+
+### What, why, how, <del>should</del>?
+
+***
+
+<!-- .slide: data-background="#000000" -->
+
+ <figure class="stretch">
+   <img src="./img/yoda.gif" width=1200 class="stretch">
+ </figure>
+
+
+***
+
+<!-- .slide: data-background="./img/thank-you.jpg" -->
+
+# Thank you!
+
+***
+
+# Questions?
+
+https://kikito.github.io/ci-with-ruby
+
+Enrique García Cota ([@otikik](https://twitter.com/otikik))
+
+          </script>
+        </section>
+      </div>
+
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+
+        width: 960,
+        height: 700,
+
+        margin: 0.1,
+
+        // Bounds for smallest/largest possible scale to apply to content
+        minScale: 0.2,
+        maxScale: 1,
+
+        center: true,
+
+        theme: 'kikito',
+        transition: 'fade', // default/cube/page/concave/zoom/linear/fade/none
+        transitionSpeed: 'fast',
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return true; }, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/zoom-js/zoom.js', async: true },
+          { src: 'plugin/notes/notes.js', async: true }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>
